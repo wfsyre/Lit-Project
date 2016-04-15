@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,6 +48,12 @@ public class DocNode {
     public void makeStage(Stage stage) {
         if (type == null) {
             System.out.println("Nothing to display");
+
+        } else if (type.equals("audio")) {
+            Media media = new Media(a.getPath());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
+            stage.setTitle(a.getName());
         } else if (type.equals("video")) {
 
         } else if (type.equals("picture")) {
