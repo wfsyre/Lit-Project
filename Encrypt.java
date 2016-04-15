@@ -1,9 +1,10 @@
 import java.util.Scanner;
+
 public class Encrypt {
     public static void do1(String str) {
-        //Scanner scan=new Scanner(System.in);
+        // Scanner scan=new Scanner(System.in);
         String ans = "";
-        //String first=scan.next();
+        // String first=scan.next();
         String first = str;
         for (int i = 0; i <= first.length() - 1; i++) {
             char a = first.charAt(i);
@@ -15,6 +16,7 @@ public class Encrypt {
         }
         System.out.println(ans);
     }
+
     public static void undo1() {
         Scanner scan = new Scanner(System.in);
         String ans = "";
@@ -30,6 +32,7 @@ public class Encrypt {
         System.out.println(ans);
         scan.close();
     }
+
     public static String doPass(String encode, String pass) {
         String ans = "";
         int lene = encode.length();
@@ -60,6 +63,7 @@ public class Encrypt {
         }
         return ans;
     }
+
     public static String undoPass(String encoded, String pass) {
         String ans = "";
         String uncode = encoded;
@@ -77,7 +81,7 @@ public class Encrypt {
                 }
             }
         }
-        //after the String are of equal length
+        // after the String are of equal length
         for (int k = 0; k < newPass.length(); k++) {
             char x = uncode.charAt(k);
             char y = newPass.charAt(k);
@@ -116,27 +120,11 @@ public class Encrypt {
             while (newChar > 126) {
                 newChar = (char) ((newChar - 126) + 32);
                 count++;
-                /*
-                if (newChar == 's') {
-                    newChar = '$';
-                } else if (newChar == 'n') {
-                    newChar = '#';
-                } else if (newChar == 'a') {
-                    newChar = '@';
-                } else if (newChar == 'e') {
-                    newChar = '3';
-                } else if (newChar == 'v') {
-                    newChar = '^';
-                } else if (newChar == 'o') {
-                    newChar = '0';
-                }
-                */
             }
             ans = ans + newChar;
         }
         return ans;
     }
-
 
     public static String litunencryption(String text, String decode) {
         String ans = "";
@@ -154,7 +142,7 @@ public class Encrypt {
                 }
             }
         }
-        //after the String are of equal length
+        // after the String are of equal length
         for (int k = 0; k < newPass.length(); k++) {
             char x = text.charAt(k);
             /*

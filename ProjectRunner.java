@@ -18,8 +18,6 @@ public class ProjectRunner extends Application {
         DocNode rick = new DocNode("rick", "Rick.mp3", "audio", true);
         start.addDoc(test);
         start.addDoc(rick);
-        start.showDoc("rick", firstStage);
-        firstStage.show();
         String answer = "";
         Scanner scan = new Scanner(System.in);
         while (!answer.equals("buzz")) {
@@ -28,7 +26,7 @@ public class ProjectRunner extends Application {
             start.displayDocs();
             answer = scan.nextLine();
             if (start.showDoc(answer, firstStage)) {
-                firstStage.show();
+                firstStage.showAndWait();
             }
         }
     }
