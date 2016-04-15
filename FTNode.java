@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FTNode {
@@ -49,7 +51,7 @@ public class FTNode {
         }
     }
 
-    public void displayFile() {
+    public void makeStage(Stage stage) {
         if (type == null) {
             System.out.println("Nothing to display");
         } else if (type.equals("video")) {
@@ -57,21 +59,25 @@ public class FTNode {
         } else if (type.equals("picture")) {
 
         } else if (type.equals("text")) {
-            Stage stage = new Stage();
             String fileText = "";
             try {
                 Scanner scan = new Scanner(a);
                 while (scan.hasNext()) {
                     fileText = fileText + "\n" + scan.nextLine();
                 }
-                TextField textDisplay = new TextField(fileText);
+                Text text = new Text(fileText);
+                text.setFont(new Font(10));
+                TextArea textDisplay = new TextArea(fileText);
                 stage.setScene(new Scene(textDisplay));
+                stage.setTitle(a.getName());
             } catch (FileNotFoundException e) {
             }
-            stage.show();
-        } else if (type.equals("audio")) {
+        } else if (type.equals("audio"))
+
+        {
 
         }
+
     }
 
     public void addChildren(FTNode child) {
