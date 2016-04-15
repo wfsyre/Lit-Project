@@ -114,12 +114,20 @@ public class Encrypt {
         for (int k = 0; k < newPass.length(); k++) {
             count = 0;
             char x = text.charAt(k);
-            char y = newPass.charAt(k);
-            int temp = x + y;
-            char newChar = (char) temp;
-            while (newChar > 126) {
-                newChar = (char) ((newChar - 126) + 32);
-                count++;
+            char newChar;
+            if (x != '\\') {
+                System.out.println(x);
+                char y = newPass.charAt(k);
+                int temp = x + y;
+                newChar = (char) temp;
+                while (newChar > 126) {
+                    newChar = (char) ((newChar - 126) + 32);
+                    count++;
+                }
+            } else {
+                System.out.println("found a \\");
+                newChar = x;
+                k++;
             }
             ans = ans + newChar;
         }
@@ -142,30 +150,21 @@ public class Encrypt {
                 }
             }
         }
-        // after the String are of equal length
+        // after the Strings are of equal length
         for (int k = 0; k < newPass.length(); k++) {
             char x = text.charAt(k);
-            /*
-            if (x == '$') {
-                x = 's';
-            } else if (x == '#') {
-                x = 'n';
-            } else if (x == '@') {
-                x = 'a';
-            } else if (x == '3') {
-                x = 'e';
-            } else if (x == '^') {
-                x = 'v';
-            } else if (x == '0') {
-               x = 'o';
+            char newChar;
+            if (x != '\\') {
+                char y = newPass.charAt(k);
+                int temp = x - y;
+                while (temp < 32) {
+                    temp = (temp + 94);
+                }
+                newChar = (char) temp;
+            } else {
+                newChar = x;
+                k++;
             }
-            */
-            char y = newPass.charAt(k);
-            int temp = x - y;
-            while (temp < 32) {
-                temp = (temp + 94);
-            }
-            char newChar = (char) temp;
             ans = ans + newChar;
         }
         return ans;

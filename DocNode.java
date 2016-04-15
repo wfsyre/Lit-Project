@@ -3,9 +3,12 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Scanner;
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -81,8 +84,20 @@ public class DocNode {
                 mediaPlayer.stop();
             });
             stage.setScene(new Scene(tools));
-        } else if (type.equals("picture")) {
-
+        } else if (type.equals("image")) {
+            ImageView viewer = new ImageView();
+            Image image = new Image(a.getName());
+            viewer.setImage(image);
+            viewer.setRotate(90);
+            viewer.setFitWidth(1250);
+            viewer.setPreserveRatio(true);
+            viewer.setSmooth(true);
+            viewer.setCache(true);
+            Group root = new Group();
+            root.getChildren().addAll(viewer);
+            stage.setScene(new Scene(root));
+            stage.setTitle(a.getName());
+            stage.sizeToScene();
         } else if (type.equals("text")) {
             String fileText = "";
             try {

@@ -13,20 +13,30 @@ public class ProjectRunner extends Application {
 
     public void start(Stage stage) {
         Stage firstStage = new Stage();
-        StoryNode start = new StoryNode();
-        DocNode test = new DocNode("test", "test.txt", "text", false);
-        DocNode rick = new DocNode("rick", "Rick.mp3", "audio", true);
-        start.addDoc(test);
-        start.addDoc(rick);
+        StoryNode next = new StoryNode("answers", null, "buzz", true);
+        StoryNode start = new StoryNode("Beginnings", next);
+        DocNode text = new DocNode("test", "test.txt", "text", false);
+        DocNode audio = new DocNode("rick", "Rick.mp3", "audio", true);
+        DocNode image = new DocNode("image", "IMG_3178.jpg", "image", false);
+        start.addDoc(text);
+        start.addDoc(audio);
+        start.addDoc(image);
         String answer = "";
         Scanner scan = new Scanner(System.in);
-        while (!answer.equals("buzz")) {
+        current = start;
+        while (!answer.equals("quit")) {
             System.out.println(
                             "please enter a document name, or the password for the next document");
-            start.displayDocs();
+            current.displayDocs();
             answer = scan.nextLine();
-            if (start.showDoc(answer, firstStage)) {
-                firstStage.showAndWait();
+            if (answer.equals(next.getName())) {
+                if (start.accessNext()) {
+                    current = next;
+                }
+            } else {
+                if (start.showDoc(answer, firstStage)) {
+                    firstStage.showAndWait();
+                }
             }
         }
     }
