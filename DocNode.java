@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.Scene;
@@ -9,27 +8,26 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class FTNode {
+public class DocNode {
     private String name;
     private String type;
     private File a;
     private boolean isEnterable;
-    private ArrayList<FTNode> children;
 
-    public FTNode(String name) {
+    public DocNode(String name) {
         this.name = name;
         this.type = null;
         a = null;
         isEnterable = true;
     }
 
-    public FTNode(String name, String fileName, String type) {
+    public DocNode(String name, String fileName, String type) {
         this.name = name;
         isEnterable = true;
         a = new File(fileName);
     }
 
-    public FTNode(String name, String fileName,
+    public DocNode(String name, String fileName,
                     String type, boolean isEnterable) {
         this.name = name;
         this.type = type;
@@ -43,12 +41,6 @@ public class FTNode {
 
     public boolean isEnterable() {
         return isEnterable;
-    }
-
-    public void addChildren(FTNode... a) {
-        for (FTNode node : a) {
-            children.add(node);
-        }
     }
 
     public void makeStage(Stage stage) {
@@ -78,13 +70,5 @@ public class FTNode {
 
         }
 
-    }
-
-    public void addChildren(FTNode child) {
-        children.add(child);
-    }
-
-    public ArrayList<FTNode> getChildren() {
-        return children;
     }
 }
