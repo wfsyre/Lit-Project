@@ -9,7 +9,8 @@ public class ProjectRunner {
     FTNode current;
 
     public static void main(String[] args) {
-
+        FTNode start = new FTNode("start", "test.txt", "text", true);
+        start.displayFile();
     }
 
     public void stage1(String pass) {

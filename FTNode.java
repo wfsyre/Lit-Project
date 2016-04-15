@@ -1,5 +1,11 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class FTNode {
     private String name;
@@ -21,9 +27,10 @@ public class FTNode {
         a = new File(fileName);
     }
 
-    public FTNode(String name, boolean isEnterable, String fileName,
-                    String type) {
+    public FTNode(String name, String fileName,
+                    String type, boolean isEnterable) {
         this.name = name;
+        this.type = type;
         this.isEnterable = isEnterable;
         a = new File(fileName);
     }
@@ -50,7 +57,18 @@ public class FTNode {
         } else if (type.equals("picture")) {
 
         } else if (type.equals("text")) {
-
+            Stage stage = new Stage();
+            String fileText = "";
+            try {
+                Scanner scan = new Scanner(a);
+                while (scan.hasNext()) {
+                    fileText = fileText + "\n" + scan.nextLine();
+                }
+                TextField textDisplay = new TextField(fileText);
+                stage.setScene(new Scene(textDisplay));
+            } catch (FileNotFoundException e) {
+            }
+            stage.show();
         } else if (type.equals("audio")) {
 
         }
