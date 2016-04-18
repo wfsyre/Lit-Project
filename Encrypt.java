@@ -66,8 +66,8 @@ public class Encrypt {
 
     public static String undoPass(String encoded, String pass) {
         String ans = "";
-        String uncode = encoded;
-        int lenu = uncode.length();
+        String text = encoded;
+        int lenu = text.length();
         int lenp = pass.length();
         int diff = lenu - lenp;
         String newPass = pass;
@@ -82,8 +82,8 @@ public class Encrypt {
             }
         }
         // after the String are of equal length
-        for (int k = 0; k < newPass.length(); k++) {
-            char x = uncode.charAt(k);
+        for (int k = 0; k < newPass.length() && k < text.length(); k++) {
+            char x = text.charAt(k);
             char y = newPass.charAt(k);
             int temp = x - y;
             while (temp < 32) {
@@ -114,7 +114,7 @@ public class Encrypt {
                 }
             }
         }
-        for (int k = 0; k < newPass.length(); k++) {
+        for (int k = 0; k < newPass.length() && k < text.length(); k++) {
             count = 0;
             char x = text.charAt(k);
             char y = newPass.charAt(k);
@@ -149,7 +149,7 @@ public class Encrypt {
             }
         }
         // after the Strings are of equal length
-        for (int k = 0; k < newPass.length(); k++) {
+        for (int k = 0; k < newPass.length() && k < text.length(); k++) {
             char x = text.charAt(k);
             char y = newPass.charAt(k);
             int temp = x - y;

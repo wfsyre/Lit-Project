@@ -65,7 +65,8 @@ public class DocNode {
         } else if (type.equals("audio")) {
             if (!isEnterable) {
                 Scanner input = new Scanner(System.in);
-                System.out.println("Please enter the password to view this document");
+                System.out.println(
+                                "Please enter the password to view this document");
                 String string = input.nextLine();
                 if (string.equals(pass)) {
                     System.out.println("Entry granted");
@@ -104,7 +105,8 @@ public class DocNode {
         } else if (type.equals("image")) {
             if (!isEnterable) {
                 Scanner input = new Scanner(System.in);
-                System.out.println("Please enter the password to view this document");
+                System.out.println(
+                                "Please enter the password to view this document");
                 String string = input.nextLine();
                 if (string.equals(pass)) {
                     System.out.println("Entry granted");
@@ -144,8 +146,16 @@ public class DocNode {
                     String userPass = input.nextLine();
                     fileText = "";
                     for (int i = 0; i < strings.length; i++) {
-                        strings[i] = Encrypt.litunencryption(fileText, userPass);
-                        fileText = fileText + "\n" + strings[i];
+                        strings[i] = Encrypt.litunencryption(strings[i],
+                                        userPass);
+                        if (i == 0 || strings[i].equals("")) {
+                            fileText = strings[i];
+                        } else {
+                            fileText = fileText + "\n" + strings[i];
+                        }
+                    }
+                    if (userPass.equals(pass)) {
+                        isEnterable = true;
                     }
                 }
                 TextArea textDisplay = new TextArea(fileText);
