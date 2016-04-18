@@ -10,28 +10,32 @@ import javafx.stage.Stage;
 
 public class ProjectRunner extends Application {
     StoryNode current;
+    String path;
 
     public void start(Stage stage) {
         Stage firstStage = new Stage();
         StoryNode next = new StoryNode("answers", null, "buzz", true);
         StoryNode start = new StoryNode("Beginnings", next);
-        DocNode text = new DocNode("test", "test.txt", "text", false);
-        DocNode audio = new DocNode("rick", "Rick.mp3", "audio", true);
-        DocNode image = new DocNode("image", "IMG_3178.jpg", "image", false);
+        DocNode text = new DocNode("test", "test.txt", "text", false, "buzz");
+        DocNode audio = new DocNode("rick", "Rick.mp3", "audio", true, "buzz");
+        DocNode image = new DocNode("image", "IMG_3178.jpg", "image", false, "buzz");
         start.addDoc(text);
         start.addDoc(audio);
         start.addDoc(image);
         String answer = "";
         Scanner scan = new Scanner(System.in);
         current = start;
+        path = current.getName() + "\\";
         while (!answer.equals("quit")) {
             System.out.println(
                             "please enter a document name, or the password for the next document");
+            System.out.println("Current directory: " + path);
             current.displayDocs();
             answer = scan.nextLine();
             if (answer.equals(next.getName())) {
                 if (start.accessNext()) {
                     current = next;
+                    path = path + current.getName();
                 }
             } else {
                 if (start.showDoc(answer, firstStage)) {
