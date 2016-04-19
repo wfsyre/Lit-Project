@@ -34,6 +34,7 @@ public class DocNode {
         this.name = name;
         isEnterable = true;
         a = new File(fileName);
+        this.type = type;
         pass = "";
     }
 

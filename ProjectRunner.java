@@ -18,7 +18,9 @@ public class ProjectRunner extends Application {
         StoryNode start = new StoryNode("Beginnings", next);
         DocNode text = new DocNode("test", "test.txt", "text", false, "buzz");
         DocNode audio = new DocNode("rick", "Rick.mp3", "audio", true, "buzz");
-        DocNode image = new DocNode("image", "IMG_3178.jpg", "image", false, "buzz");
+        DocNode image = new DocNode("image", "IMG_3178.jpg", "image", false,
+                        "buzz");
+        DocNode helpText = new DocNode("help", "help.txt", "text");
         start.addDoc(text);
         start.addDoc(audio);
         start.addDoc(image);
@@ -28,7 +30,7 @@ public class ProjectRunner extends Application {
         path = current.getName() + "\\";
         while (!answer.equals("quit")) {
             System.out.println(
-                            "please enter a document name, or the password for the next document");
+                            "please enter a document name, the folder you would like to advance to, or \"help\"");
             System.out.println("Current directory: " + path);
             current.displayDocs();
             answer = scan.nextLine();
@@ -37,6 +39,10 @@ public class ProjectRunner extends Application {
                     current = next;
                     path = path + current.getName();
                 }
+            } else if (answer.equals("help")) {
+                helpText.makeStage(firstStage);
+                firstStage.setWidth(900);
+                firstStage.showAndWait();
             } else {
                 if (start.showDoc(answer, firstStage)) {
                     firstStage.showAndWait();

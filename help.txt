@@ -1,0 +1,12 @@
+This is a helpful text file for many of the technical situations you may encounter
+
+1. Opening regular documents:
+To open a document, simply type in the name of the document exactly as it is shown
+
+2. Opening encrypted documents:
+To open an incrypted document, enter the name of the document, being careful to include only the characters from the standard alphabet.
+This does not include any of the following  !@#$%^&*
+
+3. Entering new folders:
+When you have completed a section of the game, the password to open the next folder should be clear. But first you must enter the folder name exactly
+as it is shown.  After completeing this, you now have access to a wealth of new infomation.
