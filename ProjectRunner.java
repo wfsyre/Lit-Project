@@ -10,39 +10,37 @@ import javafx.stage.Stage;
 
 public class ProjectRunner extends Application {
     StoryNode current;
-    String path;
 
     public void start(Stage stage) {
         Stage firstStage = new Stage();
-        StoryNode next = new StoryNode("answers", null, "buzz", true);
-        StoryNode start = new StoryNode("Beginnings", next);
-        DocNode text = new DocNode("test", "test.txt", "text", false, "buzz");
-        DocNode audio = new DocNode("rick", "Rick.mp3", "audio", true, "buzz");
-        DocNode image = new DocNode("image", "IMG_3178.jpg", "image", false,
-                        "buzz");
-        DocNode helpText = new DocNode("help", "help.txt", "text");
-        start.addDoc(text);
-        start.addDoc(audio);
-        start.addDoc(image);
-        String answer = "";
+        StoryNode coaches = new StoryNode("Coaches");
+        StoryNode tribBook = new StoryNode("$#$%Tribute Book$#%$", coaches, "gold", true);
+        StoryNode start = new StoryNode("Beginnings", tribBook);
+        DocNode readMe = new DocNode("README", "README.txt", "text", true);
+        DocNode goldQuestion = new DocNode("Golden Question", "Golden Question.txt", "text", true);
+        DocNode goldBio = new DocNode("Golden Tornadoes Team", "Golden Tornadoes Team.txt", "text", false);
+        DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg", "image", true);
+        DocNode forewardImage = new DocNode("Tribute Book Foreword", "Foreword.jpg", "image", true);
+        DocNode teamImage = new DocNode("Tribute Book Team", "Team.jpg", "image", true);
+        
+        start.addDoc(readMe);
+        start.addDoc(goldQuestion);
+        start.addDoc(goldBio);
+        tribBook.addDoc(coverImage);
+        tribBook.addDoc(forewardImage);
+        tribBook.addDoc(teamImage);
+        String answer = new String();
         Scanner scan = new Scanner(System.in);
         current = start;
-        path = current.getName() + "\\";
         while (!answer.equals("quit")) {
             System.out.println(
-                            "please enter a document name, the folder you would like to advance to, or \"help\"");
-            System.out.println("Current directory: " + path);
+                            "please enter a document name, or the password for the next document");
             current.displayDocs();
             answer = scan.nextLine();
-            if (answer.equals(next.getName())) {
+            if (answer.equals(tribBook.getName())) {
                 if (start.accessNext()) {
-                    current = next;
-                    path = path + current.getName();
+                    current = tribBook;
                 }
-            } else if (answer.equals("help")) {
-                helpText.makeStage(firstStage);
-                firstStage.setWidth(900);
-                firstStage.showAndWait();
             } else {
                 if (start.showDoc(answer, firstStage)) {
                     firstStage.showAndWait();
