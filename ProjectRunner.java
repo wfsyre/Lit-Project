@@ -14,16 +14,21 @@ public class ProjectRunner extends Application {
     public void start(Stage stage) {
         Stage firstStage = new Stage();
         StoryNode coaches = new StoryNode("Coaches");
-        StoryNode tribBook = new StoryNode("$#$%Tribute Book$#%$", coaches, "gold", true);
+        StoryNode tribBook = new StoryNode("$#$%Tribute Book$#%$", coaches,
+                        "gold", true, true);
         StoryNode start = new StoryNode("Beginnings", tribBook);
         DocNode readMe = new DocNode("README", "README.txt", "text", true);
-        DocNode goldQuestion = new DocNode("Golden Question", "Golden Question.txt", "text", true);
-        DocNode goldBio = new DocNode("Golden Tornadoes Team", "Golden Tornadoes Team.txt", "text", false);
-        DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg", "image", true);
-        DocNode forewardImage = new DocNode("Tribute Book Foreword", "Foreword.jpg", "image", true);
-        DocNode teamImage = new DocNode("Tribute Book Team", "Team.jpg", "image", true);
-        
-        start.addDoc(readMe);
+        DocNode goldQuestion = new DocNode("Golden Question",
+                        "Golden Question.txt", "text", true);
+        DocNode goldBio = new DocNode("Golden Tornadoes Team",
+                        "Golden Tornadoes Team.txt", "text", false);
+        DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg",
+                        "image", true);
+        DocNode forewardImage = new DocNode("Tribute Book Foreword",
+                        "Foreword.jpg", "image", true);
+        DocNode teamImage = new DocNode("Tribute Book Team", "Team.jpg",
+                        "image", true);
+
         start.addDoc(goldQuestion);
         start.addDoc(goldBio);
         tribBook.addDoc(coverImage);
@@ -34,13 +39,16 @@ public class ProjectRunner extends Application {
         current = start;
         while (!answer.equals("quit")) {
             System.out.println(
-                            "please enter a document name, or the password for the next document");
+                            "please enter a document name, or the password for the next document, or type \"help\"");
             current.displayDocs();
             answer = scan.nextLine();
             if (answer.equals(tribBook.getName())) {
                 if (start.accessNext()) {
                     current = tribBook;
                 }
+            } else if (answer.equals("help")) {
+                readMe.makeStage(firstStage);
+                firstStage.showAndWait();
             } else {
                 if (start.showDoc(answer, firstStage)) {
                     firstStage.showAndWait();

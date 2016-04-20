@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.core.formatter.alignment_for_arguments_in_annotation=16
+org.eclipse.jdt.core.formatter.comment.format_block_comments=false
+org.eclipse.jdt.core.formatter.continuation_indentation=4
+org.eclipse.jdt.core.formatter.continuation_indentation_for_array_initializer=4
+org.eclipse.jdt.core.formatter.insert_space_after_opening_brace_in_array_initializer=do not insert
+org.eclipse.jdt.core.formatter.insert_space_before_closing_brace_in_array_initializer=do not insert
+org.eclipse.jdt.core.formatter.join_wrapped_lines=false
+org.eclipse.jdt.core.formatter.lineSplit=80
+org.eclipse.jdt.core.formatter.tabulation.char=space

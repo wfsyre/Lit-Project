@@ -23,27 +23,24 @@ public class DocNode {
     private String pass;
 
     public DocNode(String name) {
-        this.name = name;
-        this.type = null;
-        a = null;
-        isEnterable = true;
-        pass = "";
+        this(name, "", "", true, "");
     }
 
     public DocNode(String name, String fileName, String type) {
-        this.name = name;
-        isEnterable = true;
-        a = new File(fileName);
-        this.type = type;
-        pass = "";
+        this(name, fileName, type, true, "");
+    }
+
+    public DocNode(String name, String fileName, String type,
+                    boolean isEnterable) {
+        this(name, fileName, type, isEnterable, "");
     }
 
     public DocNode(String name, String fileName,
                     String type, boolean isEnterable, String pass) {
         this.name = name;
+        a = new File(fileName);
         this.type = type;
         this.isEnterable = isEnterable;
-        a = new File(fileName);
         this.pass = pass;
     }
 

@@ -9,38 +9,26 @@ public class StoryNode {
     private String pass;
     private String name;
     private boolean isLocked;
+    private boolean isCascadeLock;
+    private int cas = -1;
     String text;
 
-    public StoryNode(String name, ArrayList<DocNode> docs) {
-        this.name = name;
-        this.docs = docs;
-        isLocked = false;
-        String pass = "";
-        next = null;
-    }
-
     public StoryNode(String name) {
-        this.name = name;
-        docs = new ArrayList<DocNode>();
-        isLocked = false;
-        String pass = "";
-        next = null;
+        this(name, null, "", false, false);
     }
 
     public StoryNode(String name, StoryNode next, String pass,
-                    boolean isLocked) {
+                    boolean isLocked, boolean isCascadeLock) {
         this.name = name;
         docs = new ArrayList<DocNode>();
         this.next = next;
         this.pass = pass;
         this.isLocked = isLocked;
+        this.isCascadeLock = isCascadeLock;
     }
 
     public StoryNode(String name, StoryNode next) {
-        docs = new ArrayList<DocNode>();
-        this.name = name;
-        this.next = next;
-        isLocked = false;
+        this(name, next, "", false, false);
     }
 
     public void setText(String text) {
@@ -52,9 +40,20 @@ public class StoryNode {
     }
 
     public void displayDocs() {
-        for (DocNode doc : docs) {
-            System.out.println(doc.isEnterable() ? doc.getName()
-                            : "$$$" + doc.getName() + "$^#*@");
+        boolean cascade = false;
+        for (int i = 0; i < docs.size(); i++) {
+            if (isCascadeLock) {
+                if (cas != -1 && !docs.get(i).isEnterable()) {
+                    cascade = true;
+                    cas = i;
+                }
+                System.out.println(cascade ? docs.get(i).getName()
+                                : "$$$" + docs.get(i).getName() + "$^#*@");
+            } else {
+                System.out.println(docs.get(i).isEnterable()
+                                ? docs.get(i).getName()
+                                : "$$$" + docs.get(i).getName() + "$^#*@");
+            }
         }
         if (next != null) {
             System.out.println("Folder: " + next.getName());
