@@ -4,7 +4,7 @@ import java.util.Scanner;
 import javafx.stage.Stage;
 
 public class StoryNode {
-    private ArrayList<DocNode> docs;
+    private ArrayList<Doc> docs;
     private StoryNode next;
     private String pass;
     private String name;
@@ -20,7 +20,7 @@ public class StoryNode {
     public StoryNode(String name, StoryNode next, String pass,
                     boolean isLocked, boolean isCascadeLock) {
         this.name = name;
-        docs = new ArrayList<DocNode>();
+        docs = new ArrayList<Doc>();
         this.next = next;
         this.pass = pass;
         this.isLocked = isLocked;
@@ -39,21 +39,22 @@ public class StoryNode {
         docs.add(a);
     }
 
-    public void displayDocs() {
+    public void displayDocs(String path) {
         boolean cascade = false;
         for (int i = 0; i < docs.size(); i++) {
             if (isCascadeLock) {
-                if (cas != -1 && !docs.get(i).isEnterable()) {
+                if (docs.get(i).isLocked()) {
                     cascade = true;
-                    cas = i;
                 }
-                System.out.println(cascade ? docs.get(i).getName()
-                                : "$$$" + docs.get(i).getName() + "$^#*@");
-            } else {
-                System.out.println(docs.get(i).isEnterable()
-                                ? docs.get(i).getName()
-                                : "$$$" + docs.get(i).getName() + "$^#*@");
+                if (cascade) {
+                    docs.get(i).setIsDependent(true);
+                }
             }
+            System.out.println(!docs.get(i).isLocked()
+                            || !docs.get(i).getIsDependent()
+                                            ? docs.get(i).getName()
+                                            : "$$$" + docs.get(i).getName()
+                                                            + "$^#*@");
         }
         if (next != null) {
             System.out.println("Folder: " + next.getName());
@@ -62,10 +63,25 @@ public class StoryNode {
 
     public boolean showDoc(String name, Stage stage) {
         boolean found = false;
-        for (DocNode doc : docs) {
+        for (int i = 0; i < docs.size(); i++) {
+            Doc doc = docs.get(i);
+            if (cas > i && isCascadeLock) {
+                doc.setIsLocked(false);
+            }
             if (doc.getName().equals(name)) {
-                doc.makeStage(stage);
                 found = true;
+                if (doc.getIsDependent()) {
+                    System.out.println(
+                                    "You must unlock a previous document before this one is available");
+                    return false;
+                } else if (doc instanceof DocNode) {
+                    DocNode newDoc = (DocNode) doc;
+                    if (newDoc.makeStage(stage)) {
+                        int cas = i;
+                    }
+                } else {
+                    DocFolder folder = (DocFolder) doc;
+                }
             }
         }
         if (!found) {
@@ -109,5 +125,9 @@ public class StoryNode {
 
     public void setNext(StoryNode next) {
         this.next = next;
+    }
+
+    public StoryNode getNext() {
+        return next;
     }
 }

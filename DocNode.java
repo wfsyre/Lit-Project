@@ -15,12 +15,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Stage;
 
-public class DocNode {
+public class DocNode extends Doc {
     private String name;
     private String type;
     private File a;
-    private boolean isEnterable;
-    private String pass;
 
     public DocNode(String name) {
         this(name, "", "", true, "");
@@ -40,7 +38,7 @@ public class DocNode {
         this.name = name;
         a = new File(fileName);
         this.type = type;
-        this.isEnterable = isEnterable;
+        this.isLocked = isEnterable;
         this.pass = pass;
     }
 
@@ -49,69 +47,77 @@ public class DocNode {
     }
 
     public boolean isEnterable() {
-        return isEnterable;
+        return isLocked;
     }
 
     public String getPass() {
         return pass;
     }
 
-    public void makeStage(Stage stage) {
+    public boolean makeStage(Stage stage) {
         if (type == null) {
             System.out.println("Nothing to display");
 
+        } else if (isDependent) {
+            return false;
         } else if (type.equals("audio")) {
-            if (!isEnterable) {
+            if (isLocked) {
                 Scanner input = new Scanner(System.in);
                 System.out.println(
                                 "Please enter the password to view this document");
                 String string = input.nextLine();
                 if (string.equals(pass)) {
                     System.out.println("Entry granted");
-                    isEnterable = true;
+                    isLocked = false;
                 }
             }
-            HBox tools = new HBox();
-            URL resource = getClass().getResource(a.getName());
-            Media media = new Media(resource.toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-            stage.setTitle(a.getName());
+            if (!isLocked) {
+                HBox tools = new HBox();
+                URL resource = getClass().getResource(a.getName());
+                Media media = new Media(resource.toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                stage.setTitle(a.getName());
 
-            // play button
-            Button play = new Button("||");
-            play.setOnAction(event -> {
-                Status status = mediaPlayer.getStatus();
-                if (status == Status.UNKNOWN || status == Status.HALTED) {
-                    // don't do anything in these states
-                    return;
-                }
-                if (status == Status.PAUSED || status == Status.READY
-                                || status == Status.STOPPED) {
-                    mediaPlayer.play();
-                    play.setText("||");
-                } else {
-                    mediaPlayer.pause();
-                    play.setText(">");
-                }
-            });
-            tools.getChildren().addAll(play);
-            stage.setOnCloseRequest(event -> {
-                mediaPlayer.stop();
-            });
-            stage.setScene(new Scene(tools));
+                // play button
+                Button play = new Button("||");
+                play.setOnAction(event -> {
+                    Status status = mediaPlayer.getStatus();
+                    if (status == Status.UNKNOWN || status == Status.HALTED) {
+                        // don't do anything in these states
+                        return;
+                    }
+                    if (status == Status.PAUSED || status == Status.READY
+                                    || status == Status.STOPPED) {
+                        mediaPlayer.play();
+                        play.setText("||");
+                    } else {
+                        mediaPlayer.pause();
+                        play.setText(">");
+                    }
+                });
+                tools.getChildren().addAll(play);
+                stage.setOnCloseRequest(event -> {
+                    mediaPlayer.stop();
+                });
+                stage.setScene(new Scene(tools));
+                return true;
+            } else {
+                System.out.println("Entry denied");
+                return false;
+            }
         } else if (type.equals("image")) {
-            if (!isEnterable) {
+            if (isLocked) {
                 Scanner input = new Scanner(System.in);
                 System.out.println(
                                 "Please enter the password to view this document");
                 String string = input.nextLine();
                 if (string.equals(pass)) {
                     System.out.println("Entry granted");
-                    isEnterable = true;
+                    isLocked = false;
                 }
             }
-            if (isEnterable) {
+            if (!isLocked) {
                 ImageView viewer = new ImageView();
                 Image image = new Image(a.getName());
                 viewer.setImage(image);
@@ -125,7 +131,9 @@ public class DocNode {
                 stage.setScene(new Scene(root));
                 stage.setTitle(a.getName());
                 stage.sizeToScene();
+                return true;
             }
+            return false;
         } else if (type.equals("text")) {
             String fileText = "";
             try {
@@ -133,7 +141,7 @@ public class DocNode {
                 while (scan.hasNext()) {
                     fileText = fileText + "\n" + scan.nextLine();
                 }
-                if (!isEnterable) {
+                if (isLocked) {
                     String[] strings = fileText.split("\n");
                     for (int i = 0; i < strings.length; i++) {
                         strings[i] = Encrypt.litcryption(strings[i], pass);
@@ -153,14 +161,17 @@ public class DocNode {
                         }
                     }
                     if (userPass.equals(pass)) {
-                        isEnterable = true;
+                        isLocked = false;
                     }
                 }
                 TextArea textDisplay = new TextArea(fileText);
                 stage.setScene(new Scene(textDisplay));
                 stage.setTitle(a.getName());
             } catch (FileNotFoundException e) {
+                System.out.println(e);
             }
+            return !isLocked;
         }
+        return false;
     }
 }

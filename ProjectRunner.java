@@ -10,13 +10,15 @@ import javafx.stage.Stage;
 
 public class ProjectRunner extends Application {
     StoryNode current;
+    String path;
 
     public void start(Stage stage) {
         Stage firstStage = new Stage();
         StoryNode coaches = new StoryNode("Coaches");
         StoryNode tribBook = new StoryNode("$#$%Tribute Book$#%$", coaches,
                         "gold", true, true);
-        StoryNode start = new StoryNode("Beginnings", tribBook);
+        StoryNode start = new StoryNode("Beginnings", tribBook, "", false,
+                        true);
         DocNode readMe = new DocNode("README", "README.txt", "text", true);
         DocNode goldQuestion = new DocNode("Golden Question",
                         "Golden Question.txt", "text", true);
@@ -37,14 +39,17 @@ public class ProjectRunner extends Application {
         String answer = new String();
         Scanner scan = new Scanner(System.in);
         current = start;
+        path = current.getName() + ">";
         while (!answer.equals("quit")) {
+            System.out.println("C:\\" + path);
             System.out.println(
                             "please enter a document name, or the password for the next document, or type \"help\"");
-            current.displayDocs();
+            current.displayDocs(path);
             answer = scan.nextLine();
-            if (answer.equals(tribBook.getName())) {
-                if (start.accessNext()) {
-                    current = tribBook;
+            if (answer.equals(current.getNext().getName())) {
+                if (current.accessNext()) {
+                    current = current.getNext();
+                    path = "\\" + path.substring(0, path.length() - 1) + ">";
                 }
             } else if (answer.equals("help")) {
                 readMe.makeStage(firstStage);
@@ -55,21 +60,5 @@ public class ProjectRunner extends Application {
                 }
             }
         }
-    }
-
-    public void stage1(String pass) {
-
-    }
-
-    public void stage2(String pass) {
-
-    }
-
-    public void stage3(String pass) {
-
-    }
-
-    public void stage4(String pass) {
-
     }
 }
