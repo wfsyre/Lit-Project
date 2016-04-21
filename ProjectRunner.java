@@ -21,9 +21,9 @@ public class ProjectRunner extends Application {
                         true);
         DocNode readMe = new DocNode("README", "README.txt", "text", false);
         DocNode goldQuestion = new DocNode("Golden Question",
-                        "Golden Question.txt", "text", false);
+                        "Golden Question.txt", "text", true, "pass");
         DocNode goldBio = new DocNode("Golden Tornadoes Team",
-                        "Golden Tornadoes Team.txt", "text", true);
+                        "Golden Tornadoes Team.txt", "text", false);
         DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg",
                         "image", false);
         DocNode forewardImage = new DocNode("Tribute Book Foreword",
@@ -57,16 +57,17 @@ public class ProjectRunner extends Application {
                 firstStage.showAndWait();
             } else if (answer.equals("back")) {
                 if (current.hasPrevious()) {
+                    path = path.substring(0, path.length()
+                                    - current.getName().length() - 2);
                     current = current.getPrevious();
                 } else {
                     System.out.println("Cannot go to previos directory");
                 }
             } else {
-                if (current.showDoc(answer, firstStage, path)) {
+                if (current.showDoc(answer, firstStage)) {
                     firstStage.showAndWait();
                 }
             }
         }
-        scan.close();
     }
 }

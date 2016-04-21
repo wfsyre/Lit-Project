@@ -15,10 +15,13 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Stage;
 
-public class DocNode extends Doc {
+public class DocNode {
     private String name;
     private String type;
     private File a;
+    private String pass;
+    private boolean isLocked;
+    private boolean isDependent;
 
     public DocNode(String name) {
         this(name, "", "", false, "");
@@ -54,12 +57,12 @@ public class DocNode extends Doc {
         return pass;
     }
 
-    public boolean makeStage(Stage stage) {
+    public void makeStage(Stage stage) {
         if (type == null) {
             System.out.println("Nothing to display");
 
         } else if (isDependent) {
-            return false;
+            return;
         } else if (type.equals("audio")) {
             if (isLocked) {
                 Scanner input = new Scanner(System.in);
@@ -101,10 +104,8 @@ public class DocNode extends Doc {
                     mediaPlayer.stop();
                 });
                 stage.setScene(new Scene(tools));
-                return true;
             } else {
                 System.out.println("Entry denied");
-                return false;
             }
         } else if (type.equals("image")) {
             if (isLocked) {
@@ -131,9 +132,9 @@ public class DocNode extends Doc {
                 stage.setScene(new Scene(root));
                 stage.setTitle(a.getName());
                 stage.sizeToScene();
-                return true;
+            } else {
+                System.out.println("Entry denied");
             }
-            return false;
         } else if (type.equals("text")) {
             String fileText = "";
             try {
@@ -170,8 +171,18 @@ public class DocNode extends Doc {
             } catch (FileNotFoundException e) {
                 System.out.println(e);
             }
-            return !isLocked;
         }
-        return false;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setIsDependent(boolean value) {
+        isDependent = value;
+    }
+
+    public boolean getIsDependent() {
+        return isDependent;
     }
 }

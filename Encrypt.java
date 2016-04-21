@@ -100,29 +100,13 @@ public class Encrypt {
             return "";
         }
         String ans = "";
-        int lent = text.length();
-        int lene = encode.length();
-        int diff = lent - lene;
-        String newPass = encode;
-        int count = 0;
-        if (diff > 0) {
-            for (int i = lene; i < lent; i++) {
-                newPass = newPass + encode.charAt(count);
-                count++;
-                if (count == lene) {
-                    count = 0;
-                }
-            }
-        }
-        for (int k = 0; k < newPass.length() && k < text.length(); k++) {
-            count = 0;
+        for (int k = 0; k < text.length(); k++) {
             char x = text.charAt(k);
-            char y = newPass.charAt(k);
+            char y = encode.charAt(k % encode.length());
             int temp = x + y;
             char newChar = (char) temp;
             while (newChar > 126) {
                 newChar = (char) ((newChar - 126) + 32);
-                count++;
             }
             ans = ans + newChar;
         }
@@ -134,24 +118,9 @@ public class Encrypt {
             return "";
         }
         String ans = "";
-        int lent = text.length();
-        int lenp = decode.length();
-        int diff = lent - lenp;
-        String newPass = decode;
-        int count = 0;
-        if (diff > 0) {
-            for (int i = lenp; i < lent; i++) {
-                newPass = newPass + decode.charAt(count);
-                count++;
-                if (count == lenp) {
-                    count = 0;
-                }
-            }
-        }
-        // after the Strings are of equal length
-        for (int k = 0; k < newPass.length() && k < text.length(); k++) {
+        for (int k = 0; k < text.length(); k++) {
             char x = text.charAt(k);
-            char y = newPass.charAt(k);
+            char y = decode.charAt(k % decode.length());
             int temp = x - y;
             while (temp < 32) {
                 temp = (temp + 94);
