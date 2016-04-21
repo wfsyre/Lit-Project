@@ -8,9 +8,10 @@ public class StoryNode {
     private StoryNode next;
     private String pass;
     private String name;
+    private StoryNode previous;
     private boolean isLocked;
     private boolean isCascadeLock;
-    private int cas = -1;
+    private int cas;
     String text;
 
     public StoryNode(String name) {
@@ -46,7 +47,7 @@ public class StoryNode {
                 if (docs.get(i).isLocked()) {
                     cascade = true;
                 }
-                if (cascade) {
+                if (cascade && !docs.get(i).isLocked()) {
                     docs.get(i).setIsDependent(true);
                 }
             }
@@ -61,12 +62,13 @@ public class StoryNode {
         }
     }
 
-    public boolean showDoc(String name, Stage stage) {
+    public boolean showDoc(String name, Stage stage, String path) {
         boolean found = false;
+        cas = docs.size();
         for (int i = 0; i < docs.size(); i++) {
             Doc doc = docs.get(i);
-            if (cas > i && isCascadeLock) {
-                doc.setIsLocked(false);
+            if (cas < i && isCascadeLock) {
+                doc.setIsDependent(false);
             }
             if (doc.getName().equals(name)) {
                 found = true;
@@ -76,11 +78,9 @@ public class StoryNode {
                     return false;
                 } else if (doc instanceof DocNode) {
                     DocNode newDoc = (DocNode) doc;
-                    if (newDoc.makeStage(stage)) {
+                    if (!newDoc.makeStage(stage)) {
                         int cas = i;
                     }
-                } else {
-                    DocFolder folder = (DocFolder) doc;
                 }
             }
         }
@@ -129,5 +129,13 @@ public class StoryNode {
 
     public StoryNode getNext() {
         return next;
+    }
+
+    public StoryNode getPrevious() {
+        return previous;
+    }
+
+    public boolean hasPrevious() {
+        return previous != null;
     }
 }

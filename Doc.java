@@ -22,6 +22,10 @@ public abstract class Doc {
     }
 
     public void setIsDependent(boolean value) {
-        isDependent = value;
+        if (isLocked) {
+            isDependent = false;
+        } else {
+            isDependent = value;
+        }
     }
 }

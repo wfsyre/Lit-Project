@@ -21,24 +21,24 @@ public class DocNode extends Doc {
     private File a;
 
     public DocNode(String name) {
-        this(name, "", "", true, "");
+        this(name, "", "", false, "");
     }
 
     public DocNode(String name, String fileName, String type) {
-        this(name, fileName, type, true, "");
+        this(name, fileName, type, false, "");
     }
 
     public DocNode(String name, String fileName, String type,
-                    boolean isEnterable) {
-        this(name, fileName, type, isEnterable, "");
+                    boolean isLocked) {
+        this(name, fileName, type, isLocked, "");
     }
 
     public DocNode(String name, String fileName,
-                    String type, boolean isEnterable, String pass) {
+                    String type, boolean isLocked, String pass) {
         this.name = name;
         a = new File(fileName);
         this.type = type;
-        this.isLocked = isEnterable;
+        this.isLocked = isLocked;
         this.pass = pass;
     }
 

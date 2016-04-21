@@ -19,17 +19,17 @@ public class ProjectRunner extends Application {
                         "gold", true, true);
         StoryNode start = new StoryNode("Beginnings", tribBook, "", false,
                         true);
-        DocNode readMe = new DocNode("README", "README.txt", "text", true);
+        DocNode readMe = new DocNode("README", "README.txt", "text", false);
         DocNode goldQuestion = new DocNode("Golden Question",
-                        "Golden Question.txt", "text", true);
+                        "Golden Question.txt", "text", false);
         DocNode goldBio = new DocNode("Golden Tornadoes Team",
-                        "Golden Tornadoes Team.txt", "text", false);
+                        "Golden Tornadoes Team.txt", "text", true);
         DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg",
-                        "image", true);
+                        "image", false);
         DocNode forewardImage = new DocNode("Tribute Book Foreword",
-                        "Foreword.jpg", "image", true);
+                        "Foreword.jpg", "image", false);
         DocNode teamImage = new DocNode("Tribute Book Team", "Team.jpg",
-                        "image", true);
+                        "image", false);
 
         start.addDoc(goldQuestion);
         start.addDoc(goldBio);
@@ -49,16 +49,24 @@ public class ProjectRunner extends Application {
             if (answer.equals(current.getNext().getName())) {
                 if (current.accessNext()) {
                     current = current.getNext();
-                    path = "\\" + path.substring(0, path.length() - 1) + ">";
+                    path = path.substring(0, path.length() - 1) + "\\"
+                                    + current.getName() + ">";
                 }
             } else if (answer.equals("help")) {
                 readMe.makeStage(firstStage);
                 firstStage.showAndWait();
+            } else if (answer.equals("back")) {
+                if (current.hasPrevious()) {
+                    current = current.getPrevious();
+                } else {
+                    System.out.println("Cannot go to previos directory");
+                }
             } else {
-                if (start.showDoc(answer, firstStage)) {
+                if (current.showDoc(answer, firstStage, path)) {
                     firstStage.showAndWait();
                 }
             }
         }
+        scan.close();
     }
 }
