@@ -29,10 +29,10 @@ public class ProjectRunner extends Application {
         DocNode readMe = new DocNode("README", "README.txt", "text", false);
         DocNode excelTest = new DocNode("Excel", "book1.xlsx", "excel", false);
         //puzzle 4 documents
-        DocNode startDoc4 = new DocNode("unencrypt.exe", "puzz4start.txt", "text", false);
+        DocNode startDoc4 = new DocNode("unencrypt.exe", "Text/puzz4start.txt", "text", false);
         DocNode campusMap = new DocNode("Campus Map", "campusmap.jpg", "image", false);
-        DocNode campusMapHint = new DocNode("Location", "location.txt", "text", true, "pass");
-        DocNode directory = new DocNode("Directory", "campusdirectory.jpg", "image", false);
+        DocNode campusMapHint = new DocNode("Location", "Text/location.txt", "text", false, "pass");
+        DocNode directory = new DocNode("Directory", "/Images/Map Resoure/campusdirectory.jpg", "image", false);
         // end puzzle 4 documents
         DocNode goldQuestion = new DocNode("Golden Question",
                         "Golden Question.txt", "text", true, "pass");
