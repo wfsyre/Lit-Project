@@ -44,7 +44,9 @@ OPPERATIONS
 
 	Navigating Veratas: To access a file or folder, type the 
 	                    file or folder's name in to the consol 
-	                    and press enter to procede.
+	                    and press enter to procede. To backtrack
+	                    to a previous folder, type "back" and
+	                    press enter.
 
 	Bypassing Encryption: To access Encrypted items type the
 	                      items name and press enter. Text will
