@@ -1,7 +1,7 @@
-ERROR. ERROR. CORRUPTED DOCUMENT FOUND. ERROR. ERROR.
-BEGINNING UNCORRUPT PROTOCOL.
-UNCORRUPT.EXE EXECUTED.
+ERROR. ERROR. ENCRYPTED DOCUMENTS FOUND. ERROR. ERROR.
+BEGINNING UNENCRYPTION PROTOCOL.
+UNENCRYPT.EXE EXECUTED.
 
-The following file(s) have been corrupted and written over. 
-To uncorrupt the file, please enter the admin key to give the
-uncorrupting executable the appropriate privileges. 
+The following file(s) have been encrypted remotely. 
+To unencrypt the file, please enter the admin key to give the
+unencrypting executable the appropriate privileges. 
