@@ -15,49 +15,40 @@ public class ProjectRunner extends Application {
 
     public void start(Stage stage) {
         Stage firstStage = new Stage();
-        StoryNode coaches = new StoryNode("Coaches");
-        //puzzle 4 story nodes
-        StoryNode olympics = new StoryNode("Building Site", null, "Howey", true, true);
-        StoryNode puzz4 = new StoryNode("Physics Building", olympics, "", false, true);
-        olympics.setPrevious(puzz4);
-        //puzzle 4 story nodes
-        HashMap<Integer, StoryNode> puzzle1Folder = new HashMap<Integer, StoryNode>();
-        StoryNode tribBook = new StoryNode("Tribute Book", coaches,
-                        "gold", true, true);
-        StoryNode start = new StoryNode("Beginnings", tribBook, "", false,
-                        true);
+        //Folders
+        StoryNode start = new StoryNode("Beginnings", null, "", false, true);
+        StoryNode goldenTornadoes = new StoryNode("Golden Tornadoes", start, "Golden Tornadoes", true, true);
+        StoryNode tribBook = new StoryNode("Tribute Book", goldenTornadoes, "gold", true, true);
+        StoryNode puzz4 = new StoryNode("Physics Building", null, "", false, true);
+        StoryNode olympics = new StoryNode("Building Site", puzz4, "Howey", true, true);
+        //Documents
         DocNode readMe = new DocNode("README", "README.txt", "text", false);
-        DocNode excelTest = new DocNode("Excel", "book1.xlsx", "excel", false);
-        //puzzle 4 documents
+        DocNode gfAudio = new DocNode("Interview", "test.mp3", "audio", false);
+        DocNode technique = new DocNode("technique", "Text/technique.txt", "text", true, "John Doe");
         DocNode startDoc4 = new DocNode("unencrypt.exe", "Text/puzz4start.txt", "text", false);
-        DocNode campusMap = new DocNode("Campus Map", "campusmap.jpg", "image", false);
         DocNode campusMapHint = new DocNode("Location", "Text/location.txt", "text", false, "pass");
-        DocNode directory = new DocNode("Directory", "/Images/Map Resoure/campusdirectory.jpg", "image", false);
-        // end puzzle 4 documents
         DocNode goldQuestion = new DocNode("Golden Question",
                         "Golden Question.txt", "text", true, "pass");
-        DocNode goldBio = new DocNode("Golden Tornadoes Team",
-                        "Golden Tornadoes Team.txt", "text", false);
         DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg",
                         "image", false);
         DocNode forewardImage = new DocNode("Tribute Book Foreword",
                         "Foreword.jpg", "image", false);
         DocNode teamImage = new DocNode("Tribute Book Team", "Team.jpg",
                         "image", false);
-
-        start.addDoc(goldQuestion);
-        start.addDoc(goldBio);
+        
+        start.addDoc(gfAudio);
+        start.addDoc(technique);
+        start.addFolder(goldenTornadoes, 3);
+        goldenTornadoes.addFolder(tribBook, 0);
+        goldenTornadoes.addDoc(goldQuestion);
         tribBook.addDoc(coverImage);
         tribBook.addDoc(forewardImage);
         tribBook.addDoc(teamImage);
-        puzz4.addDoc(excelTest);
         puzz4.addDoc(startDoc4);
         puzz4.addDoc(campusMapHint);
-        puzz4.addDoc(campusMap);
-        puzz4.addDoc(directory);
         String answer = "";
         Scanner scan = new Scanner(System.in);
-        current = puzz4;
+        current = start;
         path = current.getName() + ">";
         while (!answer.equals("quit")) {
             System.out.println("C:\\" + path);
@@ -65,12 +56,23 @@ public class ProjectRunner extends Application {
                             "please enter a document name, folder name, \"back\" or \"help\"");
             current.displayDocs(path);
             answer = scan.nextLine();
-            if (current.hasNext() && answer.equals(current.getNext().getName())) {
-                if (current.accessNext()) {
-                    current = current.getNext();
-                    current.setIsLocked(false);
-                    path = path.substring(0, path.length() - 1) + "\\"
-                                    + current.getName() + ">";
+            if (current.hasFolders()) {
+            	int num = current.folderHasName(answer);
+                if (num != -1) {
+                	StoryNode temp = current.getFolder(num);
+                	if (temp.isLocked()) {
+                		System.out.println("The folder you are attempting to acces is locked. PLease provide the passcode");
+                		String tempAns = scan.nextLine();
+                		if (tempAns.equals(temp.getPass())) {
+                			System.out.println("success");
+                			current = temp;
+                			current.setIsLocked(false);
+                		}
+                	} else {
+                        current = current.getFolder(num);
+                	}
+                	path = path.substring(0, path.length() - 1) + "\\"
+                            + current.getName() + ">";
                 }
             } else if (answer.equals("help")) {
                 readMe.makeStage(firstStage);
@@ -83,11 +85,15 @@ public class ProjectRunner extends Application {
                 } else {
                     System.out.println("Cannot go to previous directory");
                 }
+            } else if (answer.equals("triangle")) {
+            	System.out.println("Secret file system activated");
+            	path = "C:\\Secret>";
             } else {
                 if (current.showDoc(answer, firstStage)) {
                     firstStage.showAndWait();
                 }
             }
         }
+        System.exit(0);
     }
 }
