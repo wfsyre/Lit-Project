@@ -123,9 +123,9 @@ public class DocNode {
                 Image image = new Image(a.getName());
                 viewer.setImage(image);
                 viewer.setRotate(90);
-                viewer.setFitWidth(1250);
-                viewer.setPreserveRatio(true);
-                viewer.setSmooth(true);
+                viewer.setFitWidth(700);
+                viewer.setFitHeight(700);
+                viewer.setPreserveRatio(false);
                 viewer.setCache(true);
                 Group root = new Group();
                 root.getChildren().addAll(viewer);

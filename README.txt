@@ -64,8 +64,3 @@ KNOWN ERRORS
 	                     predecesor in a singular folder. Error
 	                     most likely caused by parent dependant
 	                     architecture. No known solution.
-	
-	Abnormal Decription: Decripted text files replace blank
-	                     space with the character 'h'. Error
-	                     caused by encryption failure. No known
-	                     solution.

@@ -46,15 +46,15 @@ public class StoryNode {
     public void displayDocs(String path) {
         updateDependencies();
         if (previous != null) {
-            System.out.println("<-- Back");
+            System.out.println("<-- back");
         }
         for (int i = 0; i < docs.size() + folders.size(); i++) {
             if (folders.containsKey(i)) {
                 if (folders.get(i).isDependent()) {
                     System.out.println(
-                                    "$$$" + folders.get(i).getName() + "#^#&");
+                                    "$$$Folder: " + folders.get(i).getName() + "#^#&");
                 } else {
-                    System.out.println(folders.get(i).getName());
+                    System.out.println("Folder: " + folders.get(i).getName());
                 }
             }
             if (i < docs.size()) {
@@ -67,7 +67,11 @@ public class StoryNode {
             }
         }
         if (next != null) {
-            System.out.println("--> " + next.getName());
+            if (next.isLocked()) {
+                System.out.println("-->" + "$$$" + next.getName() + "$^#&");
+            } else {
+                System.out.println("--> " + next.getName());
+            }
         }
     }
 
@@ -140,6 +144,10 @@ public class StoryNode {
     public boolean hasPrevious() {
         return previous != null;
     }
+    
+    public void setPrevious(StoryNode a) {
+    	previous = a;
+    }
 
     public void updateDependencies() {
         if (isCascadeLock) {
@@ -152,8 +160,7 @@ public class StoryNode {
                 }
                 if (!hereOn && docs.get(i).isLocked()) {
                     hereOn = true;
-                }
-                if (hereOn) {
+                } else if (hereOn) {
                     if (folders.containsKey(i)) {
                         folders.get(i).setDependent(true);
                     }
@@ -178,5 +185,13 @@ public class StoryNode {
 
     public boolean isDependent() {
         return isDependent;
+    }
+    
+    public boolean hasNext() {
+    	return next != null;
+    }
+    
+    public void setIsLocked(boolean value) {
+    	isLocked = value;
     }
 }

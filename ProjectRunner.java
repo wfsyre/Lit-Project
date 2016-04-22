@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -15,11 +16,23 @@ public class ProjectRunner extends Application {
     public void start(Stage stage) {
         Stage firstStage = new Stage();
         StoryNode coaches = new StoryNode("Coaches");
-        StoryNode tribBook = new StoryNode("$#$%Tribute Book$#%$", coaches,
+        //puzzle 4 story nodes
+        StoryNode olympics = new StoryNode("Building Site", null, "Howey", true, true);
+        StoryNode puzz4 = new StoryNode("Physics Building", olympics, "", false, true);
+        olympics.setPrevious(puzz4);
+        //puzzle 4 story nodes
+        HashMap<Integer, StoryNode> puzzle1Folder = new HashMap<Integer, StoryNode>();
+        StoryNode tribBook = new StoryNode("Tribute Book", coaches,
                         "gold", true, true);
         StoryNode start = new StoryNode("Beginnings", tribBook, "", false,
                         true);
         DocNode readMe = new DocNode("README", "README.txt", "text", false);
+        //puzzle 4 documents
+        DocNode startDoc4 = new DocNode("unencrypt.exe", "puzz4start.txt", "text", false);
+        DocNode campusMap = new DocNode("Campus Map", "campusmap.jpg", "image", false);
+        DocNode campusMapHint = new DocNode("Location", "location.txt", "text", true, "pass");
+        DocNode directory = new DocNode("Directory", "campusdirectory.jpg", "image", false);
+        // end puzzle 4
         DocNode goldQuestion = new DocNode("Golden Question",
                         "Golden Question.txt", "text", true, "pass");
         DocNode goldBio = new DocNode("Golden Tornadoes Team",
@@ -36,19 +49,24 @@ public class ProjectRunner extends Application {
         tribBook.addDoc(coverImage);
         tribBook.addDoc(forewardImage);
         tribBook.addDoc(teamImage);
-        String answer = new String();
+        puzz4.addDoc(startDoc4);
+        puzz4.addDoc(campusMapHint);
+        puzz4.addDoc(campusMap);
+        puzz4.addDoc(directory);
+        String answer = "";
         Scanner scan = new Scanner(System.in);
-        current = start;
+        current = puzz4;
         path = current.getName() + ">";
         while (!answer.equals("quit")) {
             System.out.println("C:\\" + path);
             System.out.println(
-                            "please enter a document name, or the password for the next document, or type \"help\"");
+                            "please enter a document name, folder name, \"back\" or \"help\"");
             current.displayDocs(path);
             answer = scan.nextLine();
-            if (answer.equals(current.getNext().getName())) {
+            if (current.hasNext() && answer.equals(current.getNext().getName())) {
                 if (current.accessNext()) {
                     current = current.getNext();
+                    current.setIsLocked(false);
                     path = path.substring(0, path.length() - 1) + "\\"
                                     + current.getName() + ">";
                 }
@@ -61,7 +79,7 @@ public class ProjectRunner extends Application {
                                     - current.getName().length() - 2);
                     current = current.getPrevious();
                 } else {
-                    System.out.println("Cannot go to previos directory");
+                    System.out.println("Cannot go to previous directory");
                 }
             } else {
                 if (current.showDoc(answer, firstStage)) {
