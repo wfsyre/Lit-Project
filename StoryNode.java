@@ -52,15 +52,17 @@ public class StoryNode {
             if (folders.containsKey(i)) {
                 if (folders.get(i).isDependent()) {
                     System.out.println(
-                                    "$$$Folder: " + folders.get(i).getName() + "#^#&");
+                                    Encrypt.litcryption(folders.get(i).getName(), "aaaaaa"));
                 } else {
                     System.out.println("Folder: " + folders.get(i).getName());
                 }
             }
             if (i < docs.size()) {
                 DocNode doc = docs.get(i);
-                if (doc.isLocked() || doc.getIsDependent()) {
+                if (doc.isLocked() && ! doc.getIsDependent()) {
                     System.out.println("$$$" + doc.getName() + "#^#&");
+                } else if (doc.getIsDependent()) {
+                	System.out.println(Encrypt.litcryption(doc.getName(), "aaaaaa"));
                 } else {
                     System.out.println(doc.getName());
                 }
@@ -82,8 +84,7 @@ public class StoryNode {
             if (doc.getName().equals(name)) {
                 found = true;
                 if (doc.getIsDependent()) {
-                    System.out.println(
-                                    "You must unlock a previous document before this one is available");
+                    System.out.println("could not find document specified");
                     return false;
                 } else {
                     doc.makeStage(stage);

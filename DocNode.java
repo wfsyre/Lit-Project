@@ -1,3 +1,4 @@
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -171,6 +172,18 @@ public class DocNode {
             } catch (FileNotFoundException e) {
                 System.out.println(e);
             }
+        } else if (type.equals("excel")) {
+        	Desktop dt = Desktop.getDesktop();
+        	try {
+        	    dt.open(a);
+        	} catch (Exception e) {
+        		System.out.println(e);
+        	}
+        	TextArea text = new TextArea("Useful Excel Commands\nctrl-f");
+        	stage.setScene(new Scene(text));
+        	stage.setAlwaysOnTop(true);
+        } else {
+        	System.out.println("File type not supported");
         }
     }
 

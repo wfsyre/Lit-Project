@@ -27,12 +27,13 @@ public class ProjectRunner extends Application {
         StoryNode start = new StoryNode("Beginnings", tribBook, "", false,
                         true);
         DocNode readMe = new DocNode("README", "README.txt", "text", false);
+        DocNode excelTest = new DocNode("Excel", "book1.xlsx", "excel", false);
         //puzzle 4 documents
         DocNode startDoc4 = new DocNode("unencrypt.exe", "puzz4start.txt", "text", false);
         DocNode campusMap = new DocNode("Campus Map", "campusmap.jpg", "image", false);
         DocNode campusMapHint = new DocNode("Location", "location.txt", "text", true, "pass");
         DocNode directory = new DocNode("Directory", "campusdirectory.jpg", "image", false);
-        // end puzzle 4
+        // end puzzle 4 documents
         DocNode goldQuestion = new DocNode("Golden Question",
                         "Golden Question.txt", "text", true, "pass");
         DocNode goldBio = new DocNode("Golden Tornadoes Team",
@@ -49,6 +50,7 @@ public class ProjectRunner extends Application {
         tribBook.addDoc(coverImage);
         tribBook.addDoc(forewardImage);
         tribBook.addDoc(teamImage);
+        puzz4.addDoc(excelTest);
         puzz4.addDoc(startDoc4);
         puzz4.addDoc(campusMapHint);
         puzz4.addDoc(campusMap);
