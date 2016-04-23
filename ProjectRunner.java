@@ -23,9 +23,37 @@ public class ProjectRunner extends Application {
         StoryNode gildedStorms = new StoryNode("Gilded Storms", goldenTornadoes, "faculty", true, true);
         StoryNode dist = new StoryNode("Distinguished Faculty", start, "Howey", true, true);
         StoryNode pGE = new StoryNode("Project Gold Experience", start, "Edwards", true, true);
+        //Tribute Images
+        DocNode t1 = new DocNode("Football Season", "1928 Fball Season", "image", false);
+        DocNode t2 = new DocNode("Fan mail", "Bae Watch.jpg", "image", false);
+        DocNode t3 = new DocNode("Burton and Bary","Burton and Bary.jpg","image", false);
+        DocNode t4 = new DocNode("Coach Alexander","Coach Alexander.jpg","image", false);
+        DocNode t5 = new DocNode("Grant Field","Grant Field.jpg","image", false);
+        DocNode t6 = new DocNode("Faces 1","Important Faces 1","image", false);
+        DocNode t7 = new DocNode("Faces 2","Important Faces 2","image", false);
+        DocNode t8 = new DocNode("Faces 3","Important Faces 3","image", false);
+        DocNode t9 = new DocNode("Overhead","Overhead.jpg","image", false);
+        DocNode t10 = new DocNode("Praise","Praise.jpg","image", false);
+        DocNode t11 = new DocNode("Credits","Printings By.jpg","image", false);
+        DocNode t12 = new DocNode("Rose Bowl","Rose Bowl.jpg","image", false);
+        DocNode t13 = new DocNode("Scores","Scores.jpg","image", false);
+        DocNode t14 = new DocNode("Tackle","Tackle 1.jpg","image", false);
+        DocNode t15 = new DocNode("Team Info","Team Info.jpg","image", false);
+        DocNode t16 = new DocNode("Team Rough","Team Rough.jpg","image", false);
+        DocNode t17 = new DocNode("Touchdown","Touchdown.jpg","image", false);
+        DocNode t18 = new DocNode("Warner and Stumpy","Warner and Stumpy.jpg","image", false);
+        DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg",
+                "image", false);
+        DocNode forewardImage = new DocNode("Tribute Book Foreword",
+                "Foreword.jpg", "image", false);
+        DocNode teamImage = new DocNode("Tribute Book Team", "Team Info.jpg",
+                "image", false);
         //Documents
+        DocNode ek1 = new DocNode("Edward-King 1", "Request King 1.jpg", "image", false);
+        DocNode ek2 = new DocNode("Edward-King 2", "Request King 2.jpg", "image", false);
         DocNode excel = new DocNode("Current Research", "ResearchPaperArchive.xlsx", "excel", false);
-        
+        DocNode uL1 = new DocNode("Underling's log #1", "Text/Assistant Log 1.txt", "text", false);
+        DocNode uL2 = new DocNode("Underling's log #2", "Text/Assistant Log 2.txt", "text", false);
         DocNode readMe = new DocNode("README", "Text/README.txt", "text", false);
         DocNode gfAudio = new DocNode("Interview", "test.mp3", "audio", false);
         DocNode technique = new DocNode("technique", "Text/technique.txt", "text", true, "John Doe");
@@ -33,12 +61,6 @@ public class ProjectRunner extends Application {
         DocNode campusMapHint = new DocNode("Location", "Text/location.txt", "text", true, "faculty");
         DocNode goldQuestion = new DocNode("Golden Question",
                         "Golden Question.txt", "text", false);
-        DocNode coverImage = new DocNode("Tribute Book Cover", "Cover.jpg",
-                        "image", false);
-        DocNode forewardImage = new DocNode("Tribute Book Foreword",
-                        "Foreword.jpg", "image", false);
-        DocNode teamImage = new DocNode("Tribute Book Team", "Team.jpg",
-                        "image", false);
         
         start.addDoc(0, gfAudio);
         start.addDoc(1, technique);
@@ -51,10 +73,33 @@ public class ProjectRunner extends Application {
         tribBook.addDoc(0, coverImage);
         tribBook.addDoc(1, forewardImage);
         tribBook.addDoc(2, teamImage);
+        tribBook.addDoc(3, t1);
+        tribBook.addDoc(4, t2);
+        tribBook.addDoc(5, t3);
+        tribBook.addDoc(6, t4);
+        tribBook.addDoc(7, t5);
+        tribBook.addDoc(8, t6);
+        tribBook.addDoc(9, t7);
+        tribBook.addDoc(10, t8);
+        tribBook.addDoc(11, t9);
+        tribBook.addDoc(12, t10);
+        tribBook.addDoc(13, t11);
+        tribBook.addDoc(14, t12);
+        tribBook.addDoc(15, t13);
+        tribBook.addDoc(16, t14);
+        tribBook.addDoc(17, t15);
+        tribBook.addDoc(18, t16);
+        tribBook.addDoc(19, t17);
+        tribBook.addDoc(20, t18);
         puzz4.addDoc(0, startDoc4);
         puzz4.addDoc(1, campusMapHint);
         dist.addDoc(0, excel);
         dist.addFolder(1, pGE);
+        pGE.addDoc(0, uL1);
+        pGE.addDoc(1, uL2);
+        pGE.addDoc(2, ek1);
+        pGE.addDoc(3, ek2);
+        
         
         String answer = "";
         Scanner scan = new Scanner(System.in);
