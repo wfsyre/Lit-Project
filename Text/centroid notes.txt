@@ -1,0 +1,20 @@
+LECTURE TRANSCRIPT
+MATH 1551: SEPTEMBER 13th
+
+DR GERONIMO:
+
+Given the majority of this class seems to have skipped
+geometry in highschool we will now be learning
+how to locate the centroid of a triangle. We begin
+by marking the midpoints of each line on the triangle.
+That means we mark three lines. I repeat, a triangle
+is composed of THREE SIDES. Once you have the midpoints,
+draw a line between them and their opposite vertex's
+The point of intersection between your three
+new lines is the centriod. Simple, yeah?
+
+Now repeat this process with variable edge points
+corresponding to an elyptical and graph the third
+order derivative of its area with respect to delta.
+
+END OF TRANSCRIPT
