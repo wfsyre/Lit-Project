@@ -54,16 +54,18 @@ public class ProjectRunner extends Application {
         DocNode teamImage = new DocNode("Tribute Book Team", "Team Info.jpg",
                 "image", false);
         //Documents
+        
         DocNode secretDoc = new DocNode("Secret", "secret.txt", "text", false);
-        DocNode inf = new DocNode("Inflitrator Incident", "infiltrator incident.txt", "text", true, "Einstein");
+        DocNode inf = new DocNode("Infiltrator Incident", "Text/infiltrator incident.txt", "text", true, "Einstein");
         DocNode sec1 = new DocNode("Bill and Bill", "Bill and Bill.jpg", "image", false);
         DocNode sec2 = new DocNode("Bob Lang", "Bob Lang 1.jpg", "image", false);
         DocNode sec3 = new DocNode("Bob Lang 2", "Bob Lang 2.jpg", "image", false);
         DocNode sec4 = new DocNode("Bob Lang 2.5", "Bob Lang2.5.jpg", "image", false);
         DocNode investigate = new DocNode("The End", "Text/Final Reveal.txt", "text", false);
         DocNode finalHints = new DocNode("The End?", "Text/last puzzle hints.txt", "text", false);
-        DocNode rsKing = new DocNode("King's Reflection", "Text/R. S. King Journal 2.txt", "text", false);
-        DocNode centroids = new DocNode("Centroid Notes", "centroid notes.txt", "text", true, "Swarm");
+        DocNode rsKing1 = new DocNode("King's log 1", "Text/R. S. King Journal 1", "text", false);
+        DocNode rsKing2 = new DocNode("King's Reflection", "Text/R. S. King Journal 2.txt", "text", false);
+        DocNode centroids = new DocNode("Centroid Notes", "Text/centroid notes.txt", "text", true, "Swarm");
         DocNode eAll3 = new DocNode("Edward to All 3", "Request WEC 2.jpg", "image", false);
         DocNode eAll2 = new DocNode("Edward to All 2", "Request WEC 1.jpg", "image", false);
         DocNode eAll1 = new DocNode("Edward to All 1", "Request SLC.jpg", "image", false);
@@ -74,7 +76,7 @@ public class ProjectRunner extends Application {
         DocNode uL1 = new DocNode("Underling's log #1", "Text/Assistant Log 1.txt", "text", false);
         DocNode uL2 = new DocNode("Underling's log #2", "Text/Assistant Log 2.txt", "text", true, "King");
         DocNode readMe = new DocNode("README", "Text/README.txt", "text", false);
-        DocNode gfAudio = new DocNode("Interview", "test.mp3", "audio", false);
+        DocNode gfAudio = new DocNode("Interview", "libbyconverted.mp3", "audio", false);
         DocNode technique = new DocNode("technique", "Text/technique.txt", "text", true, "John Doe");
         DocNode startDoc4 = new DocNode("unencrypt.exe", "Text/puzz4start.txt", "text", false);
         DocNode campusMapHint = new DocNode("Location", "Text/location.txt", "text", false);
@@ -123,8 +125,9 @@ public class ProjectRunner extends Application {
         pGE.addDoc(5, ek2);
         pGE.addDoc(6, ke1);
         pGE.addDoc(7, uL2);
-        pGE.addFolder(8, fOB);
-        fOB.addDoc(0, rsKing);
+        pGE.addDoc(8, rsKing1);
+        pGE.addFolder(9, fOB);
+        fOB.addDoc(0, rsKing2);
         fOB.addDoc(1, centroids);
         end.addDoc(0, sec1);
         end.addDoc(1, sec2);
