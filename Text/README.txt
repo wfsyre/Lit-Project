@@ -56,6 +56,9 @@ OPPERATIONS
 	
 	Terminating Veratas: Type "quit" and press enter at any time
 	                     to end your session.
+ 
+        Backtracking: Type "back to go pack to your previous directory
+                      at any time.
 
 =====================================================================
 KNOWN ERRORS
