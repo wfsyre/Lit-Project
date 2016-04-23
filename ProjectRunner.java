@@ -55,6 +55,7 @@ public class ProjectRunner extends Application {
         puzz4.addDoc(1, campusMapHint);
         dist.addDoc(0, excel);
         dist.addFolder(1, pGE);
+        
         String answer = "";
         Scanner scan = new Scanner(System.in);
         current = start;
