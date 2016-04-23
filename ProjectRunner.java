@@ -21,10 +21,11 @@ public class ProjectRunner extends Application {
         StoryNode puzz4 = new StoryNode("Physics Building", null, "", false, true);
         StoryNode gildedStorms = new StoryNode("Gilded Storms", goldenTornadoes, "faculty", true, true);
         StoryNode dist = new StoryNode("Distinguished Faculty", start, "Howey", true, true);
-        StoryNode pGE = new StoryNode("Project Gold Experience", start, "Edwards", true, true);
+        StoryNode pGE = new StoryNode("Project Gold Experience", dist, "Edwards", true, true);
         StoryNode fOB = new StoryNode("Fall of Babel", pGE, "Glory Hound", true, true);
         StoryNode lll = new StoryNode("Location Location Location", fOB, "", false, true);
         StoryNode end = new StoryNode("1996", start, "", false, true);
+        StoryNode secret = new StoryNode("Clever Girl", start, "", false, true);
         
         
         //Tribute Images
@@ -53,14 +54,16 @@ public class ProjectRunner extends Application {
         DocNode teamImage = new DocNode("Tribute Book Team", "Team Info.jpg",
                 "image", false);
         //Documents
+        DocNode secretDoc = new DocNode("Secret", "secret.txt", "text", false);
+        DocNode inf = new DocNode("Inflitrator Incident", "infiltrator incident.txt", "text", true, "Einstein");
         DocNode sec1 = new DocNode("Bill and Bill", "Bill and Bill.jpg", "image", false);
         DocNode sec2 = new DocNode("Bob Lang", "Bob Lang 1.jpg", "image", false);
         DocNode sec3 = new DocNode("Bob Lang 2", "Bob Lang 2.jpg", "image", false);
         DocNode sec4 = new DocNode("Bob Lang 2.5", "Bob Lang2.5.jpg", "image", false);
         DocNode investigate = new DocNode("The End", "Text/Final Reveal.txt", "text", false);
         DocNode finalHints = new DocNode("The End?", "Text/last puzzle hints.txt", "text", false);
-        DocNode rsKing = new DocNode("King's Reflection", "Text/R. S. King Journal.txt", "text", false);
-        DocNode centroids = new DocNode("Centroid Notes", "centroid notes.jpg", "text", true, "Swarm");
+        DocNode rsKing = new DocNode("King's Reflection", "Text/R. S. King Journal 2.txt", "text", false);
+        DocNode centroids = new DocNode("Centroid Notes", "centroid notes.txt", "text", true, "Swarm");
         DocNode eAll3 = new DocNode("Edward to All 3", "Request WEC 2.jpg", "image", false);
         DocNode eAll2 = new DocNode("Edward to All 2", "Request WEC 1.jpg", "image", false);
         DocNode eAll1 = new DocNode("Edward to All 1", "Request SLC.jpg", "image", false);
@@ -82,6 +85,7 @@ public class ProjectRunner extends Application {
         start.addDoc(1, technique);
         start.addFolder(2, goldenTornadoes);
         start.addFolder(3, dist);
+        start.addFolder(4, end);
         goldenTornadoes.addFolder(0, tribBook);
         goldenTornadoes.addDoc(1, goldQuestion);
         goldenTornadoes.addFolder(2, gildedStorms);
@@ -126,9 +130,10 @@ public class ProjectRunner extends Application {
         end.addDoc(1, sec2);
         end.addDoc(2, sec3);
         end.addDoc(3, sec4);
-        //1 more here
-        end.addDoc(4,  investigate);
+        end.addDoc(4, inf);
+        end.addDoc(5,  investigate);
         lll.addDoc(0, finalHints);
+        secret.addDoc(0, secretDoc);
         
         
         
@@ -176,16 +181,21 @@ public class ProjectRunner extends Application {
                 readMe.makeStage(firstStage);
                 firstStage.showAndWait();
             } else if (answer.equals("back")) {
-                if (current.hasPrevious()) {
+            	if (current == secret) {
+            		current = start;
+            		path = start.getName();
+            	} else if (current.hasPrevious()) {
                     path = path.substring(0, path.length()
                                     - current.getName().length() - 2) + ">";
                     current = current.getPrevious();
                 } else {
                     System.out.println("Cannot go to previous directory");
                 }
-            } else if (answer.equals("triangle")) {
+            } else if (answer.equals("illuminati")) {
             	System.out.println("Secret file system activated");
-            	path = "C:\\Secret>";
+            	path = "Clever Girl>";
+            	current = secret;
+            	
             }
             System.out.println("\n");
         }
