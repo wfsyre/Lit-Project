@@ -51,6 +51,7 @@ public class ProjectRunner extends Application {
         //Documents
         DocNode ek1 = new DocNode("Edward-King 1", "Request King 1.jpg", "image", false);
         DocNode ek2 = new DocNode("Edward-King 2", "Request King 2.jpg", "image", false);
+        DocNode ke1 = new DocNode("King-Edward", "King Fights Back.jpg", "image", false);
         DocNode excel = new DocNode("Current Research", "ResearchPaperArchive.xlsx", "excel", false);
         DocNode uL1 = new DocNode("Underling's log #1", "Text/Assistant Log 1.txt", "text", false);
         DocNode uL2 = new DocNode("Underling's log #2", "Text/Assistant Log 2.txt", "text", false);
@@ -96,9 +97,10 @@ public class ProjectRunner extends Application {
         dist.addDoc(0, excel);
         dist.addFolder(1, pGE);
         pGE.addDoc(0, uL1);
-        pGE.addDoc(1, uL2);
-        pGE.addDoc(2, ek1);
-        pGE.addDoc(3, ek2);
+        pGE.addDoc(1, ek1);
+        pGE.addDoc(2, ek2);
+        pGE.addDoc(3, ke1);
+        pGE.addDoc(4, uL2);
         
         
         String answer = "";
