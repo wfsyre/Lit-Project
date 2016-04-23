@@ -4,15 +4,10 @@ import java.util.Scanner;
 
 import javafx.stage.Stage;
 
-public class StoryNode {
-    private ArrayList<DocNode> docs;
-    private HashMap<Integer, StoryNode> folders;
-    private String pass;
-    private String name;
+public class StoryNode extends Node {
+    private HashMap<Integer, Node> items;
     private StoryNode previous;
-    private boolean isLocked;
     private boolean isCascadeLock;
-    private boolean isDependent;
     String text;
 
     public StoryNode(String name) {
@@ -22,12 +17,11 @@ public class StoryNode {
     public StoryNode(String name, StoryNode previous, String pass,
                     boolean isLocked, boolean isCascadeLock) {
         this.name = name;
-        docs = new ArrayList<DocNode>();
         this.previous = previous;
         this.pass = pass;
         this.isLocked = isLocked;
-        this.isCascadeLock = isCascadeLock;
-        folders = new HashMap<Integer, StoryNode>();
+        this.isCascadeLock = true;
+        items = new HashMap<Integer, Node>();
     }
 
     public StoryNode(String name, StoryNode previous) {
@@ -38,58 +32,38 @@ public class StoryNode {
         this.text = text;
     }
 
-    public void addDoc(DocNode a) {
-        docs.add(a);
+    public void addDoc(int a, DocNode b) {
+        items.put(a, b);
     }
 
     public void displayDocs(String path) {
         updateDependencies();
-        int num = folders.size();
         if (previous != null) {
             System.out.println("<-- back");
         }
-        for (int i = 0; i <= docs.size() + folders.size(); i++) {
-            if (folders.containsKey(i)) {
-                if (folders.get(i).isDependent()) {
-                    System.out.println(
-                                    Encrypt.litcryption(folders.get(i).getName(), "aaaaaa"));
+        for (int i = 0; i <= items.size(); i++) {
+        	if (items.containsKey(i)) {
+        	    if (items.get(i) instanceof StoryNode) {
+        	    	StoryNode story = (StoryNode) items.get(i);
+                    if (story.isDependent()) {
+                        System.out.println(
+                                        Encrypt.litcryption(story.getName(), "aaaaaa"));
+                    } else if (story.isLocked()){
+                    	System.out.println("Folder: $$$" + story.getName() + "#^#&");
+                    } else {
+                        System.out.println("Folder: " + story.getName());
+                    }
                 } else {
-                    System.out.println("Folder: " + folders.get(i).getName());
+                    DocNode doc = (DocNode) items.get(i);
+                    if (doc.isLocked() && !doc.getIsDependent()) {
+                        System.out.println("$$$" + doc.getName() + "#^#&");
+                    } else  if (doc.getIsDependent()) {
+                    	System.out.println(Encrypt.litcryption(doc.getName(), "aaaaaa"));
+                    } else {
+                        System.out.println(doc.getName());
+                    }
                 }
             }
-            if (i < docs.size()) {
-                DocNode doc = docs.get(i);
-                if (doc.isLocked() && ! doc.getIsDependent()) {
-                    System.out.println("$$$" + doc.getName() + "#^#&");
-                } else if (doc.getIsDependent()) {
-                	System.out.println(Encrypt.litcryption(doc.getName(), "aaaaaa"));
-                } else {
-                    System.out.println(doc.getName());
-                }
-            }
-        }
-    }
-
-    public boolean showDoc(String name, Stage stage) {
-        boolean found = false;
-        for (int i = 0; i < docs.size(); i++) {
-            DocNode doc = docs.get(i);
-            if (doc.getName().equals(name)) {
-                found = true;
-                if (doc.getIsDependent()) {
-                    System.out.println("could not find document specified");
-                    return false;
-                } else {
-                    doc.makeStage(stage);
-                }
-            }
-        }
-        if (!found) {
-            System.out.println("could not find document specified");
-            return false;
-        } else {
-            System.out.println("loading document...");
-            return true;
         }
     }
 
@@ -120,31 +94,25 @@ public class StoryNode {
     public void updateDependencies() {
         if (isCascadeLock) {
             boolean hereOn = false;
-            for (int i = 0; i < docs.size(); i++) {
-                if (folders.containsKey(i)) {
-                    if (folders.get(i).isLocked()) {
-                        hereOn = true;
-                    }
-                }
-                if (!hereOn && docs.get(i).isLocked()) {
-                    hereOn = true;
-                } else if (hereOn) {
-                    if (folders.containsKey(i)) {
-                        folders.get(i).setDependent(true);
-                    }
-                    docs.get(i).setIsDependent(true);
-                } else {
-                    docs.get(i).setIsDependent(false);
-                    if (folders.containsKey(i)) {
-                        folders.get(i).setDependent(false);
-                    }
-                }
+            for (int i = 0; i < items.size(); i++) {
+            	if (!hereOn && items.get(i).isLocked()) {
+            		hereOn = true;
+            		items.get(i).setIsDependent(false);
+            	} else if (hereOn && items.get(i).isLocked()){
+            		items.get(i).setIsDependent(true);
+            	} else {
+            		if (hereOn) {
+            			items.get(i).setIsDependent(true);
+            		} else {
+            			items.get(i).setIsDependent(false);
+            		}
+            	}
             }
         }
     }
 
-    public void addFolder(StoryNode a, int b) {
-        folders.put(b, a);
+    public void addFolder(int a, StoryNode b) {
+        items.put(a, b);
     }
 
     public void setDependent(boolean value) {
@@ -159,20 +127,21 @@ public class StoryNode {
     	isLocked = value;
     }
     
-    public boolean hasFolders() {
-    	return folders != null && !folders.isEmpty();
+    public boolean contains(String name) {
+    	for (int a: items.keySet()) {
+    		if (items.get(a).getName().equals(name)) {
+        		return true;
+        	}
+    	}
+    	return false;
     }
     
-    public int folderHasName(String name) {
-    	for (int i: folders.keySet()) {
-    		if (folders.get(i).getName().equals(name)) {
-    			return i;
+    public Node get(String name) {
+    	for (int a: items.keySet()) {
+    		if (items.get(a).getName().equals(name)) {
+    			return items.get(a);
     		}
     	}
-    	return -1;
-    }
-    
-    public StoryNode getFolder(int i) {
-    	return folders.get(i);
+    	return null;
     }
 }

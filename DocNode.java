@@ -16,13 +16,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Stage;
 
-public class DocNode {
-    private String name;
+public class DocNode extends Node {
     private String type;
     private File a;
-    private String pass;
-    private boolean isLocked;
-    private boolean isDependent;
 
     public DocNode(String name) {
         this(name, "", "", false, "");
